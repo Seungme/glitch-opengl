@@ -7,10 +7,13 @@ https://sketchfab.com/paulyanez
 ------------------------------------USAGE--------------------------------------
 
 To compile:
-	-make
+	$ make
 
 To load scene:
-	-./glitch [path]
-	-example: ./glitch resources/img.jpg
+	$ ./glitch [path]
+
+Examples:
+	$ ./glitch resources/img.jpg
+	$ ./glitch resources/jigsaw/source/jigsaw.obj
 
 ONLY jpg and obj files are accepted!
