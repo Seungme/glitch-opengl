@@ -65,10 +65,10 @@ int main(int argc, char *argv[]) {
 
   glEnable(GL_DEPTH_TEST);
 
-  Shader scene("src/vertex.shd", "src/fragment.shd");
+  Shader scene("src/shaders/vertex.shd", "src/shaders/fragment.shd");
   if (!obj) {
-    scene.vertex_file = "src/background_vertex.shd";
-    scene.fragment_file = "src/background_fragment.shd";
+    scene.vertex_file = "src/shaders/background_vertex.shd";
+    scene.fragment_file = "src/shaders/background_fragment.shd";
   }
   scene.Init();
 
