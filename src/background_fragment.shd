@@ -1,0 +1,139 @@
+#version 330 core
+
+out vec4 FragColor;
+
+in vec2 TexCoords;
+
+uniform sampler2D texture1;
+uniform float time;
+uniform float rand;
+uniform float noise_to_whole_image_check;
+uniform float lightning_check;
+uniform float uv_shift_check;
+uniform float horizontal_lines_check;
+uniform float vertical_lines_check;
+uniform float small_blocks_check;
+uniform float rgb_shift_check;
+uniform float full_noise_check;
+uniform float vertical_shift_check;
+
+vec3 textured = texture(texture1, TexCoords).xyz;
+
+float random (vec2 position) {
+	//generate random variable
+  return fract(sin(dot(position, vec2(int(rand) % 50, int(rand) % 100))));
+}
+
+vec4 noise_image(){
+	//put noise to image
+	vec3 noised = mod(textured, textured) * random(vec2(rand)) * 1.4;
+	noised = smoothstep(0.1, 0.5, noised);
+
+  return vec4(noised, 1.0f);
+}
+
+vec4 noise_pattern() {
+	vec2 ipos = floor(TexCoords * rand * 0.3);
+	vec3 textured = mod(textured, vec3(random(ipos)));
+	return vec4(textured, 1.0);
+}
+
+vec4 lightning() {
+	vec2 noise = floor(TexCoords * fract(time) * rand);
+	vec3 textured = mod(textured, vec4(TexCoords, noise).xyz);
+	return vec4(textured, 1.0);
+}
+
+vec4 uv_shift()
+{
+	//shift image
+	vec2 coords = TexCoords;
+	if (coords.x > -0.1 && coords.y > -0.1)
+	{
+		coords.x += 0.02;
+	}
+	vec3 shifted = vec3(texture(texture1, coords));
+
+	return vec4(shifted, 1.0f);
+}
+
+vec4 horizontal_lines()
+{
+	//generate black horizontal lines
+	if (TexCoords.y < cos(rand) + 0.05 && TexCoords.y > cos(rand) && fract(time * 0.1) > -0.01 && TexCoords.x < cos(rand) + 0.6 && TexCoords.x > cos(rand) - 0.6)
+	{
+		return texture(texture1, vec2(cos(time), floor(rand)));
+	}
+	return vec4(textured, 1.0);
+}
+
+vec4 vertical_lines()
+{
+	//generate black vertical lines
+	if (TexCoords.x < cos(rand) + 0.04 && TexCoords.x > cos(rand) && rand > 20)
+	{
+		return texture(texture1, vec2(cos(time), floor(time * 0.05)));
+	}
+	return vec4(textured, 1.0);
+}
+
+vec4 small_blocks()
+{
+	//shift small blocks
+	float x_sup = random(vec2(floor(mod(rand, 40) * TexCoords.y), time));
+	float x_inf = x_sup - 0.2;
+	float y_sup = random(vec2(floor(23 * vec2(rand, time).x), time));
+	float y_inf = y_sup - 0.2;
+
+	if (TexCoords.x < x_sup && TexCoords.x > x_inf && TexCoords.y < y_sup && TexCoords.y > y_inf && rand < 20)
+	{
+		vec4 new_texture = texture(texture1, TexCoords + vec2(random(vec2(floor(TexCoords.y) * 0.01)), random(vec2(fract(2 * TexCoords.y)))));
+		return vec4(new_texture);
+	}
+	return vec4(textured, 1.0);
+}
+
+vec4 rgb_shift()
+{
+
+	vec2 shift = vec2(texture(texture1, TexCoords / mod(rand, 100)).r * 0.1, 0.0);
+	float red = texture(texture1, TexCoords + shift + 0.03).r;
+	float green = texture(texture1, TexCoords + cos(shift) + 0.02).g;
+	float blue = texture(texture1, TexCoords - sin(shift) - 0.02).b;
+
+	return vec4(red, green, blue, 1.0);
+}
+
+
+vec4 full_noise() {
+	vec3 noise = vec3(fract(sin(dot(fract(vec2(random(TexCoords * 50))), vec2(28, 312)))));
+  return vec4(noise, 1.0);
+}
+
+vec4 vertical_shift() {
+	vec2 newCoords = TexCoords;
+	if (TexCoords.y < 1 - fract(time * 0.8) && rand < 10)
+		newCoords.x += 0.01;
+	return texture(texture1, newCoords);
+}
+
+void main() {
+	if (mod(rand, 5) == 0 && rand < 20 && full_noise_check == 1)
+    FragColor = noise_image();
+	else if (rand < 4 && vertical_shift_check == 1)
+		FragColor = vertical_shift();
+	else if (rand < 8 && rgb_shift_check == 1)
+		FragColor = rgb_shift();
+ 	else if (mod(rand, 3) == 0 && rand < 40 && horizontal_lines_check == 1)
+			FragColor =  horizontal_lines();
+ 	else if (mod(rand, 3) == 0 && rand > 98 && vertical_lines_check == 1)
+			FragColor = vertical_lines();
+	else if ((mod(rand, 5) > 2 || mod(rand, 6) == 0) && small_blocks_check == 1)
+		FragColor = small_blocks();
+	else if (rand > 97 && lightning_check == 1)
+		FragColor = lightning();
+	else if (rand < 30 && rand > 26 && uv_shift_check == 1)
+		FragColor = uv_shift();
+	else
+		FragColor = vec4(textured, 1);
+}

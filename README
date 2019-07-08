@@ -1,0 +1,16 @@
+Glitch effect with OpenGL/C++
+
+----------------------------------CREDITS--------------------------------------
+Billy the Puppet 3d model by paulyanez
+https://sketchfab.com/paulyanez
+
+------------------------------------USAGE--------------------------------------
+
+To compile:
+	-make
+
+To load scene:
+	-./glitch [path]
+	-example: ./glitch resources/img.jpg
+
+ONLY jpg and obj files are accepted!

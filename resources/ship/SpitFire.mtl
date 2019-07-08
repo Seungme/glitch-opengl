@@ -1,0 +1,63 @@
+newmtl SpitFire:Battlreship
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Battleship.png
+Ni 1.00
+newmtl SpitFire:Ocean1
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Ocean.jpg
+Ni 1.00
+newmtl SpitFire:Ocean2
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Ocean.jpg
+Ni 1.00
+newmtl SpitFire:SF_Body
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd SF_Body_albedo.jpg
+Ni 1.00
+newmtl SpitFire:SF_Wings
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd SF_Wings_albedo.jpg
+Ni 1.00
+newmtl SpitFire:SF_glass
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd SF_Glass_albedo.jpg
+Ni 1.00
+newmtl SpitFire:SkyShad
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd SkyTexture.jpg
+Ni 1.00
+newmtl SpitFire:SmokeTrailShad
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd smokeTrail.png
+Ni 1.00
+newmtl SpitFire:lambert6SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd SpongeBob.jpg
+Ni 1.00
